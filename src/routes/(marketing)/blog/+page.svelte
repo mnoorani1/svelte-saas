@@ -1,5 +1,21 @@
 <script lang="ts">
   import { sortedBlogPosts, blogInfo } from "./posts"
+  import { onMount } from "svelte"
+
+  let apiResult = "Loading..."
+  let error = ""
+
+  async function makeApiCall() {
+    try {
+      const response = await fetch("/blog/api/replicate", {
+        method: "POST",
+      })
+      const data = await response.json()
+      apiResult = JSON.stringify(data, null, 2)
+    } catch (e: unknown) {
+      error = e.message
+    }
+  }
 </script>
 
 <svelte:head>
@@ -44,4 +60,14 @@
       </div>
     </a>
   {/each}
+
+  <div class="my-8 p-4 bg-gray-100 rounded">
+    <button class="btn mb-4" on:click={makeApiCall}>Test API</button>
+    <h2 class="text-xl mb-4">API Test Result:</h2>
+    {#if error}
+      <div class="text-red-500">Error: {error}</div>
+    {:else}
+      <pre class="whitespace-pre-wrap">{apiResult}</pre>
+    {/if}
+  </div>
 </div>

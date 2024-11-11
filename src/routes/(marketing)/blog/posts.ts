@@ -20,18 +20,6 @@ const blogPosts: BlogPost[] = [
     link: "/blog/how_we_built_our_41kb_saas_website",
     date: "2024-03-10",
   },
-  {
-    title: "Example Blog Post 2",
-    description: "Even more example content!",
-    link: "/blog/awesome_post",
-    date: "2022-9-23",
-  },
-  {
-    title: "Example Blog Post",
-    description: "A sample blog post, showing our blog engine",
-    link: "/blog/example_blog_post",
-    date: "2023-03-13",
-  },
 ]
 
 // Parse post dates from strings to Date objects
