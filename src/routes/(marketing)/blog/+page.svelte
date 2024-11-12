@@ -1,6 +1,5 @@
 <script lang="ts">
   import { sortedBlogPosts, blogInfo } from "./posts"
-  import { onMount } from "svelte"
 
   let apiResult = "Loading..."
   let error = ""
@@ -12,8 +11,8 @@
       })
       const data = await response.json()
       apiResult = JSON.stringify(data, null, 2)
-    } catch (e: unknown) {
-      error = e.message
+    } catch (e) {
+      error = e instanceof Error ? e.message : String(e)
     }
   }
 </script>
