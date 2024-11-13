@@ -54,7 +54,8 @@
   <div class="container mx-auto px-4 pt-32">
     <div class="text-center">
       <h1 class="text-5xl md:text-7xl font-bold mb-6">
-        Turn your bland product photos into <span class="text-primary"
+        Stunning AI-generated social media marketing images of your Shopify
+        products Turn your bland product photos into <span class="text-primary"
           >magic</span
         >
       </h1>
