@@ -1,5 +1,10 @@
 <script lang="ts">
-  import { onMount } from "svelte"
+  import { getContext } from "svelte"
+  import type { Writable } from "svelte/store"
+
+  let adminSection: Writable<string> = getContext("adminSection")
+  adminSection.set("create")
+
   let shopifyDomain = ""
   let products: {
     title: string
@@ -38,9 +43,11 @@
 </script>
 
 <svelte:head>
-  <title>Shopify Products</title>
+  <title>Create</title>
   <meta name="description" content="Fetch and display Shopify products." />
 </svelte:head>
+
+<h1 class="text-2xl font-bold mb-6">Get Shopify products</h1>
 
 <div class="py-8 lg:py-12 px-6 max-w-lg mx-auto">
   <div class="text-3xl lg:text-5xl font-medium text-primary text-center">
