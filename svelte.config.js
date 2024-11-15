@@ -12,9 +12,10 @@ const config = {
     adapter: adapter(),
     // allow up to 150kb of style to be inlined with the HTML
     // Faster FCP (First Contentful Paint) by reducing the number of requests
-    inlineStyleThreshold: 150000,
+    inlineStyleThreshold: 150000
   },
   preprocess: vitePreprocess(),
+  runes: true
 }
 
 export default config

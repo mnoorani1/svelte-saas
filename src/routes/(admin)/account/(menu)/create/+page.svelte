@@ -1,22 +1,28 @@
 <script lang="ts">
   import { getContext } from "svelte"
   import type { Writable } from "svelte/store"
+  import DisplayProducts from "./display_products.svelte"
+  import ProductSelected from "./product_selected.svelte"
+
+  let selectedProduct: {
+    title: string
+    images: { src: string }[]
+  } | null = $state(null)
 
   let adminSection: Writable<string> = getContext("adminSection")
   adminSection.set("create")
 
-  let shopifyDomain = ""
+  let shopifyDomain = $state("")
   let products: {
     title: string
-    created_at: string
     images: { src: string }[]
-    body_html: string
-  }[] = []
-  let error = ""
+  }[] = $state([])
+  let error = $state("")
 
   async function fetchProducts() {
     error = ""
     products = []
+    selectedProduct = null
     if (!shopifyDomain) {
       error = "Please enter a Shopify domain name."
       return
@@ -39,7 +45,6 @@
       }
       const data = await response.json()
       products = data.products.slice(0, 6)
-      console.log(products.length)
     } catch (err) {
       if (err instanceof Error) {
         error = err.message
@@ -64,7 +69,7 @@
   Enter your Shopify domain to see your products.
 </div>
 
-<form on:submit|preventDefault={fetchProducts} class="mb-4">
+<form onsubmit={fetchProducts} class="mb-4">
   <input
     type="text"
     bind:value={shopifyDomain}
@@ -77,26 +82,16 @@
 {#if error}
   <div class="text-red-500 mb-4">{error}</div>
 {/if}
-{#if products.length > 0}
+{#if selectedProduct}
+  <ProductSelected product={selectedProduct} />
+{:else}
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     {#each products.slice(0, 20) as product}
       {#if product.images && product.images.length > 0}
-        <div
-          class="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
-        >
-          <img
-            src={product.images[0].src}
-            alt={product.title}
-            class="w-full h-48 object-cover mb-3 rounded"
-          />
-          <h3 class="text-lg font-semibold mb-2 truncate">{product.title}</h3>
-          <button
-            class="btn w-20 rounded-full"
-            on:click={() => console.log("Product selected:", product)}
-          >
-            Select Product
-          </button>
-        </div>
+        <DisplayProducts
+          {product}
+          onSelect={() => (selectedProduct = product)}
+        />
       {/if}
     {/each}
   </div>
