@@ -7,7 +7,9 @@
   }
 
   let { product }: Props = $props()
-  let selectedImages = $state(new Set<string>())
+  let selectedImages = $state(
+    new Set<string>(product.images.map((img) => img.src)),
+  )
 
   function toggleImage(src: string) {
     if (selectedImages.has(src)) {
@@ -33,6 +35,16 @@
       </label>
     {/each}
   </div>
+  <form method="post" action="?/createModel">
+    <div class="mt-4">
+      <input
+        type="hidden"
+        name="selectedImages"
+        value={JSON.stringify([...selectedImages])}
+      />
+      <button class="btn btn-primary" type="submit">Add to post</button>
+    </div>
+  </form>
 </div>
 
 <!-- Only select the images which clearly show the product as you want to show in your social media post -->
