@@ -14,10 +14,15 @@
   <img
     src={product.images[0].src}
     alt={product.title}
-    class="w-full h-48 object-cover mb-3 rounded"
+    class="w-full h-64 object-cover mb-4 rounded-lg"
   />
-  <h3 class="text-lg font-semibold mb-2 truncate">{product.title}</h3>
-  <button class="btn w-20 rounded-full" onclick={onSelect}>
-    Select Product
-  </button>
+  <div class="flex items-center justify-between">
+    <h3 class="text-lg font-semibold truncate flex-1">{product.title}</h3>
+    <button
+      class="btn btn-primary px-4 rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+      onclick={onSelect}
+    >
+      Select
+    </button>
+  </div>
 </div>
